@@ -1,0 +1,183 @@
+
+#include "stdafx.h"
+#include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
+#include "math.h"
+
+
+//  		//			Car Dealers			//				//
+
+
+ struct income
+{
+	double carsales;
+	double repayments;
+	double sales;
+	double others;
+	double total;
+ };
+ income Income;
+ struct expenditure {
+
+	 double loan;
+	 double taxes;
+	 double wages;
+	 double vehicals;
+	 double insurance;
+	 double utilities;
+	 double events;
+	 double advertising;
+	 double other;
+	 double total;
+ };
+ expenditure Spent;
+
+
+ struct assets {
+	 double share;
+	 double grants;
+	 double property;
+	 double brand;
+	 double transport;
+ };
+ assets asset;
+
+ struct nonasset {
+	 double debt;
+	 double depreciation;
+
+ };
+ nonasset lie;
+
+ struct contacts {
+	 // 10 people only //
+	 char firstname[10][50];
+	 char lastname[10][50];
+	 char number[10][25];
+	 char address[10][100];
+	 char job[10][50];
+	 char nationality[10][50];
+	 char status[10][50];
+
+ };
+ contacts people;
+
+int main()
+{
+	printf("enter amount of income from car sales:\n");
+	scanf("%d", &Income.carsales);
+	printf("enter amount of income from loan repayments:\n");
+	scanf("%d", &Income.repayments);
+	printf("enter amount of income from smaller sales:\n");
+	scanf("%d", &Income.sales);
+	printf("enter amount of income from other incomes:\n");
+	scanf("%d", &Income.others);
+	double INtotal = Income.carsales + Income.repayments + Income.sales + Income.others;
+	printf("\ncarsales is %d ", Income.carsales);
+	printf("\nrepayments is %d ", Income.repayments);
+	printf("\nsales is %d ", Income.sales);
+	printf("\nothers is %d ", Income.others);
+	printf("\nTotal is %d\n", INtotal);
+
+	printf("Expenditure\n");
+	printf("enter amount paid to loan repayments\n");
+	scanf("%d", &Spent.loan);
+	printf("enter amount paid to taxes\n");
+	scanf("%d", &Spent.taxes);
+	printf("enter amount paid to wages\n");
+	scanf("%d", &Spent.wages);
+	printf("enter amount paid to vehicals\n");
+	scanf("%d", &Spent.vehicals);
+	printf("enter amount paid to insurance\n");
+	scanf("%d", &Spent.insurance);
+	printf("enter amount paid to utilities\n");
+	scanf("%d", &Spent.utilities);
+	printf("enter amount paid to events\n");
+	scanf("%d", &Spent.events);
+	printf("enter amount paid to advertising\n");
+	scanf("%d", &Spent.advertising);
+    printf("enter amount paid to other\n");
+	scanf("%d", &Spent.other);
+	double OUTtotal = Spent.loan + Spent.taxes + Spent.wages + Spent.vehicals + Spent.insurance + Spent.utilities + Spent.events + Spent.advertising + Spent.other;
+	printf("\nloan repayments is %d ", Spent.loan);
+	printf("\ntaxes is %d ", Spent.taxes);
+	printf("\nwages is %d ", Spent.wages);
+	printf("\nvehicals is %d ", Spent.vehicals);
+	printf("\ninsurance is %d ", Spent.insurance);
+	printf("\nutilities is %d ", Spent.utilities);
+	printf("\nevents is %d ", Spent.events);
+	printf("\nadvertising is %d ", Spent.advertising);
+	printf("\nother is %d", Spent.other);
+	printf("\n\n Total expenditure is %d \n\n ", OUTtotal);
+	
+	double NET = INtotal - OUTtotal;
+	if (INtotal > OUTtotal) {
+		printf("\n Net money is %d\n", NET);
+	}
+	else {
+		printf("\n Net money is -%d\n", NET);
+	}
+	
+	/////////////////////////////////////////////////////////
+	puts("assets");
+	printf("enter share price:\n ");
+	scanf("%d", &asset.share);
+	printf("enter grants received:\n ");
+	scanf("%d", &asset.grants);
+	printf("enter property value:\n ");
+	scanf("%d", &asset.property);
+	printf("enter value of brand:\n ");
+	scanf("%d", &asset.brand);
+	printf("enter value of transport currently used for business:\n ");
+	scanf("%d", &asset.transport);
+	double assetTotal = asset.share + asset.grants + asset.property + asset.brand + asset.transport;
+	printf("share value is %d\n", asset.share);
+	printf("grant value is %d\n", asset.grants);
+	printf("property value is %d \n", asset.property);
+	printf("brand value is %d\n", asset.brand);
+	printf("value of transport is %d\n", asset.transport);
+	printf("total value of assets are %d\n\n",assetTotal);
+	/////////////////////////////////////////////
+	puts("non assets");
+	printf("enter value of debt:\n");
+	scanf("%d", &lie.debt);
+	printf("enter value of deprication:\n");
+	scanf("%d", &lie.depreciation);
+	double Nonlie = lie.debt + lie.depreciation;
+	printf("total debt is %d\n", lie.debt);
+	printf("total depreciation is %d\n", lie.depreciation);
+	printf("total liabilities are %d\n", Nonlie);
+
+	///////////////////////////
+	puts("CONTACTS 2 PEOPLE ONLY(so it would not take forever to get to the end of the code)(reduced for interest of time)");
+	int i = 0;
+	for (i = 0; i < 2; i++) {
+		printf("Enter first name of person:\n");
+		scanf("%s", people.firstname[i]);
+		printf("Enter last name of person:\n");
+		scanf("%s", people.lastname[i]);
+		printf("Enter address of person:\n");
+		scanf("%s", people.address[i]);
+		printf("Enter nationality of person:\n");
+		scanf("%s", people.nationality[i]);
+		printf("Enter phone number of person:\n");
+		scanf("%s", people.number[i]);
+		printf("Enter occupation of person:\n");
+		scanf("%s", people.job[i]);
+		printf("Enter dealership status of person(if they owe money or they have paid all debts):\n");
+		scanf("%s", people.status[i]);
+		printf("%s\n", people.firstname[i]);
+		printf("%s\n", people.lastname[i]);
+		printf("%s\n", people.address[i]);
+		printf("%s\n", people.nationality[i]);
+		printf("%s\n", people.number[i]);
+		printf("%s\n", people.job[i]);
+		printf("%s\n", people.status[i]);
+	}
+
+
+
+	return 0;
+}
+
