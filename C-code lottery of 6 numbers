@@ -1,0 +1,220 @@
+// Fake Lottery
+//
+//
+#include "stdafx.h"
+#include "time.h"
+#include "stdlib.h"
+
+// each line contains 6 random numbers between 1 and 47
+// the numbers must all be different
+typedef struct ticketLine
+{
+	int numbers[6];
+} line;
+
+// each ticket has just 1 line to keep it simpler
+typedef struct lotteryTicket
+{
+	line ticketLine;
+} ticket;
+
+// structure to hold the winning numbers drawn
+typedef struct winNumbers
+{
+	line winningLine;
+	int bonus;
+}
+draw;
+
+// draw the winning numbers
+draw drawNumbers();
+
+// create a new ticket
+ticket generateTicket();
+
+// check if a number is already on a line
+int alreadyDrawn(int newNum, line checkLine);
+
+// print the winning numbers drawn
+void printDraw(draw winners);
+
+// print a ticket and the number of matching numbers
+void printTicket(ticket theTicket, int nMatch);
+
+// check a ticket agains the numbers drawn
+// returns the number of matches (e.g. 4 => Match 4)
+// returns <0 if there is a bonus ball match (e.g. -4 => Match 4 + Bonus)
+int checkTicket(ticket toCheck, draw theDraw);
+
+// number of tickets to create
+#define nTickets 1000000 
+
+int main()
+{
+	srand(time(NULL));
+	// variables to keep track of the number of matches
+	int n1 = 0, n2 = 0, n3 = 0, n4 = 0, n5 = 0, n6 = 0;
+	int n1b = 0, n2b = 0, n3b = 0, n4b = 0, n5b = 0;
+	// holds the ticket created
+	ticket newTicket;
+	// holds the winning numbers
+	draw winningNumbers;
+	long i;
+	int nMatch;
+	ticket winningTicket;
+
+	srand(time(0));
+
+	// draw the winning numbers
+	winningNumbers = drawNumbers();
+
+	// print the winning numbers
+	printDraw(winningNumbers);
+
+	// loop to generate a new ticket each time we go round
+	for (i = 0; i<nTickets; i++)
+	{
+		// create the new ticket
+		newTicket = generateTicket();
+
+		// get number of matches with the numbers drawn
+		nMatch = checkTicket(newTicket, winningNumbers);
+
+		// update counters
+		if (nMatch == -1) n1b++; // Match 1 + Bonus
+		if (nMatch == -2) n2b++; // Match 2 + Bonus
+		if (nMatch == -3) n3b++; // Match 3 + Bonus
+		if (nMatch == -4) n4b++; // Match 4 + Bonus
+		if (nMatch == -5) n5b++; // Match 5 + Bonus
+		if (nMatch == 1) n1++; // Match 1
+		if (nMatch == 2) n2++; // Match 2
+		if (nMatch == 3) n3++; // Match 3
+		if (nMatch == 4) n4++; // Match 4
+		if (nMatch == 5) n5++; // Match 5
+
+		if (nMatch == 6) // Match 6
+		{
+			n6++; // there could be more than 1 winner!
+			winningTicket = newTicket;
+			printTicket(newTicket, nMatch);
+		}
+	}
+
+	printf("%d Match 2 + Bonus \n", n2b);
+	printf("%d Match 3 \n", n3);
+	printf("%d Match 3 + Bonus \n", n3b);
+	printf("%d Match 4 \n", n4);
+	printf("%d Match 4 + Bonus \n", n4b);
+	printf("%d Match 5 \n", n5);
+	printf("%d Match 5 + Bonus \n", n5b);
+	printf("%d Match 6 \n", n6);
+
+	return 0;
+}
+
+draw drawNumbers()
+{
+	draw theDraw;
+	int x;
+	int i = 0;
+	
+
+	while (i < 6)
+	{
+		x = rand() % 48;
+		// getting duplicates but it shouldnt
+		while (alreadyDrawn(x,theDraw.winningLine)){
+			x = rand()%48;
+			//i++;
+		
+		}
+		theDraw.winningLine.numbers[i] = x;
+		i++;
+		
+	}
+
+	x = rand() % 48;
+	while (alreadyDrawn(x, theDraw.winningLine)) {
+		theDraw.bonus = x;
+		i++;
+	}
+	
+	return theDraw;
+}
+
+
+ticket generateTicket()
+{
+	ticket theTicket;
+
+	int x;
+	int i = 0;
+	
+	while (i < 6)
+	{
+		x = rand() % 48;
+		if (x != theTicket.ticketLine.numbers[0] || x != theTicket.ticketLine.numbers[1] || x != theTicket.ticketLine.numbers[2] || x != theTicket.ticketLine.numbers[3] || x != theTicket.ticketLine.numbers[4] || x != theTicket.ticketLine.numbers[5])
+		{
+			theTicket.ticketLine.numbers[i] = x;
+			i++;
+		}
+	}
+	return theTicket;
+}
+
+
+int checkTicket(ticket toCheck, draw theDraw)
+{
+	int i = 0;
+	int j = 0;
+	int nMatch = 0;
+	do {
+		j = 0;
+		do {
+			if (theDraw.winningLine.numbers[i] == toCheck.ticketLine.numbers[j])
+			{
+				nMatch++;
+			}
+			j++;
+		} while (j < 6);
+		i++;
+	} while (i < 0);
+	return nMatch;
+}
+
+void printDraw(draw winners)
+{
+	puts("Numbers Drawn: \n");
+	printf("%d %d %d %d %d %d \n", winners.winningLine.numbers[0], winners.winningLine.numbers[1], winners.winningLine.numbers[2], winners.winningLine.numbers[3], winners.winningLine.numbers[4], winners.winningLine.numbers[5]);
+	printf("Bonus = %d\n", winners.bonus);
+}
+
+void printTicket(ticket theTicket, int nMatch)
+{
+	char temp1[8] = "+ Bonus";
+	char temp2[2] = " ";
+
+	puts("Ticket Numbers: \n");
+	printf("%d %d %d %d %d %d", theTicket.ticketLine.numbers[0], theTicket.ticketLine.numbers[1], theTicket.ticketLine.numbers[2], theTicket.ticketLine.numbers[3], theTicket.ticketLine.numbers[4], theTicket.ticketLine.numbers[5]);
+	if (nMatch == 6)
+	{
+		puts("WINNER - MATCH 6 !!!!!");
+	}
+	else
+	{
+		printf("Match %d %s", abs(nMatch), (nMatch < 0) ? temp1 : temp2);
+	}
+
+}
+
+
+int alreadyDrawn(int newNum, line checkLine)
+{
+	int i;
+
+	for (i = 0; i<6; i++)
+	{
+		if (newNum == checkLine.numbers[i]) return 1;
+	}
+	return 0;
+}
