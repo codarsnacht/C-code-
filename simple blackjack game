@@ -1,0 +1,151 @@
+// blackjack game.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "stdio.h"
+#include "time.h"
+#include "math.h"
+#include <stdlib.h>
+#include <conio.h>
+
+int main()
+{   // goals to complete:
+	// create RNG - done
+	// print out 2 random numbers at first - needs to rebuild but done
+	// check if numbers != 21 , if > 21 , print BUST - done 
+	// ask if uses wants to hit or stay -done
+	// continue until either uses imputs stay , gets BUST or has 5 cards with total < 21 done
+	// draw for dealer , if dealer and user card value = 21 , dealer card value = 22 and dealer wins 
+
+	puts("you are now playing blackjack , closest to 21 wins");
+
+	int i, r, a , choice,c2,c3;
+	int value = 0;
+	int valueDealer = 0;
+	for (a = 0; a < 2; a++)
+	{
+		srand(time(NULL));
+	r = rand() %11;
+	
+	
+	printf("%d\t", r);
+	value = value + r;
+}
+	printf("\n total value of initial cards are %d \n", value);
+	printf("Do you want to Hit(1) or stay(2) ? PLease enter your choice\n");
+	scanf("%d", &choice);
+
+	switch (choice)
+	{
+	case 1:
+		for (a = 0; a < 1; a++)
+		{
+			srand(time(NULL));
+			r = rand() % 11;
+
+
+			printf("%d\t", r);
+			value = value + r;
+		}
+			printf("\n new total value of cards are %d \n", value);
+			if (value > 21)
+				printf("You are BUST\n");
+
+			printf("Do you want to Hit(1) or stay(2) ? PLease enter your choice\n");
+			scanf("%d", &c2);
+			
+			switch (c2)
+			{
+			case 1:
+				for (a = 0; a < 1; a++)
+				{
+					srand(time(NULL));
+					r = rand() % 11;
+
+
+					printf("%d\t", r);
+					value = value + r;
+				}
+				printf("\n new total value of cards are %d \n", value);
+				if (value > 21){
+					printf("You are BUST\n");
+					break;
+			}
+				printf("Do you want to Hit(1) or stay(2) ? PLease enter your choice\n");
+				scanf("%d", &c3);
+
+				switch (c3) {
+				case 1:
+					for (a = 0; a < 1; a++)
+					{
+						srand(time(NULL));
+						r = rand() % 11;
+
+
+						printf("%d\t", r);
+						value = value + r;
+					}
+					printf("\n new total value of cards are %d \n", value);
+					if (value > 21) {
+						printf("You are BUST\n");
+						break;
+					}
+					else printf("you win!!! ( 5 card rule)\n\n");
+					break;
+				case 2:
+						break;
+				}
+			case 2:
+				break;
+			}
+
+	case 2:
+		break;
+
+	default:
+			break;
+
+	}
+	printf("its the dealers go now \n");
+	getchar();
+	for (a = 0; a < 2; a++)
+	{
+		srand(time(NULL));
+		r = rand() % 11;
+
+
+		printf("%d\t", r);
+		valueDealer = valueDealer + r;
+	}
+	printf("initial dealer value is %d", valueDealer);
+	getchar();
+	 if (valueDealer > value)
+	{
+		printf("dealer Wins , player looses\n ");
+		return 0;
+	}
+	while (valueDealer < 21 || valueDealer < value) {
+		for (a = 0; a < 1; a++)
+		{
+			srand(time(NULL));
+			r = rand() % 11;
+
+
+			printf("%d\t", r);
+			valueDealer = valueDealer + r;
+		}
+		printf(" dealer value is %d", valueDealer);
+
+	}
+	 if (valueDealer > 21) {
+		printf("Dealer Bust , player WINS !!!\n");
+		return 0;
+	}
+	else if (valueDealer > value)
+	{
+		printf("dealer Wins , player looses\n ");
+		return 0;
+	}
+    return 0;
+}
+
