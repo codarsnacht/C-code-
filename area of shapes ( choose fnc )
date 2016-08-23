@@ -1,0 +1,104 @@
+// 29-9-15 assignment labs.cpp : Defines the entry point for the console application.
+//
+
+#include<stdio.h>
+#include"stdafx.h"
+
+
+
+int main() {
+	int choice;
+	float a, b, c, h, w;
+	double  s;
+	double area;
+	const float PI = 3.14; 
+
+	
+			printf("Enter Choice:\n1 (triangle)\n2,(square)\n3,(rectangle)\n4,(circle)\nChoice:");
+			scanf_s("%d", &choice);
+
+
+
+			switch (choice)
+
+{
+			case 1:
+		
+
+		printf("Enter size of each sides of triangle");
+		scanf_s("%f%f", &b, &h);
+
+		s = (b*h*0.5);
+	
+
+		printf("Area of triangle is: %.2lf", s);
+
+		break;
+
+			case 2:
+
+			float lengthOfSide;
+			
+			printf("Area of Square in C \n");
+			printf("Enter Length of Side : ");
+			scanf_s("%f", &lengthOfSide);
+
+			area = lengthOfSide * lengthOfSide;
+			printf("Area of Square  = %.2f \n", area);
+
+			printf("Press enter to continue... \n");
+			fflush(stdin);
+			getchar();
+			break;
+
+
+			
+
+			case 3 :
+				float width, height;
+				
+				printf("Area of Rectangle in C \n");
+				printf("Enter Width : ");
+				scanf_s("%f", &width);
+				printf("Enter Height : ");
+				scanf_s("%f", &height);
+				area = width * height;
+				printf("Area of Rectangle  = %.2f \n", area);
+
+				printf("Press enter to continue... \n");
+				fflush(stdin);
+				getchar();
+				break;
+
+			case 4 :
+
+				
+				float radius;
+				
+
+				printf("Area of Circle in C \n");
+				printf("Enter Radius : ");
+				scanf_s("%f", &radius);
+
+				area = PI * radius * radius;
+				printf("Area of Circle  = %.2f \n", area);
+
+				printf("Press enter to continue... \n");
+				fflush(stdin);
+				getchar();
+				
+				break;
+
+
+
+			default:
+				printf("You did not choose a shape\n");
+
+
+}
+
+
+	return 0;
+}
+
+
