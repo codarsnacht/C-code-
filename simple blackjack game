@@ -14,8 +14,8 @@ int main()
 	// print out 2 random numbers at first - needs to rebuild but done
 	// check if numbers != 21 , if > 21 , print BUST - done 
 	// ask if uses wants to hit or stay -done
-	// continue until either uses imputs stay , gets BUST or has 5 cards with total < 21 done
-	// draw for dealer , if dealer and user card value = 21 , dealer card value = 22 and dealer wins 
+	// continue until either uses imputs stay , gets BUST or has 5 cards with total < 21 - done
+	// draw for dealer , if dealer and user card value = 21 , dealer card value = 22 and dealer wins -done 
 
 	puts("you are now playing blackjack , closest to 21 wins");
 
@@ -26,7 +26,11 @@ int main()
 	{
 		srand(time(NULL));
 	r = rand() %11;
-	
+	//help with removing the zero card
+    if (r==0){
+		srand(time(NULL));
+		r = rand() % 11;
+	}
 	
 	printf("%d\t", r);
 	value = value + r;
@@ -44,7 +48,7 @@ int main()
 			r = rand() % 11;
 
 
-			printf("%d\t", r);
+			printf("Card drawn is %d\t", r);
 			value = value + r;
 		}
 			printf("\n new total value of cards are %d \n", value);
@@ -63,12 +67,13 @@ int main()
 					r = rand() % 11;
 
 
-					printf("%d\t", r);
+					printf("Card drawn is %d\t", r);
 					value = value + r;
 				}
 				printf("\n new total value of cards are %d \n", value);
 				if (value > 21){
 					printf("You are BUST\n");
+					return 0;
 					break;
 			}
 				printf("Do you want to Hit(1) or stay(2) ? PLease enter your choice\n");
@@ -82,15 +87,17 @@ int main()
 						r = rand() % 11;
 
 
-						printf("%d\t", r);
+						printf("Card drawn is %d\t", r);
 						value = value + r;
 					}
 					printf("\n new total value of cards are %d \n", value);
 					if (value > 21) {
 						printf("You are BUST\n");
+						return 0;
 						break;
 					}
 					else printf("you win!!! ( 5 card rule)\n\n");
+					return 0;
 					break;
 				case 2:
 						break;
@@ -108,36 +115,49 @@ int main()
 	}
 	printf("its the dealers go now \n");
 	getchar();
+
 	for (a = 0; a < 2; a++)
 	{
 		srand(time(NULL));
+		srand(time(NULL));
 		r = rand() % 11;
+		// removing the zero card
+		if (r == 0) {
+			srand(time(NULL));
+			r = rand() % 11;
+		}
 
-
-		printf("%d\t", r);
+		printf("Card drawn is %d\n", r);
 		valueDealer = valueDealer + r;
+		getchar();
 	}
 	printf("initial dealer value is %d", valueDealer);
 	getchar();
-	 if (valueDealer > value)
+	 if (valueDealer >= value)
 	{
 		printf("dealer Wins , player looses\n ");
 		return 0;
 	}
-	while (valueDealer < 21 || valueDealer < value) {
+	while (valueDealer < 21 && valueDealer < value) {
 		for (a = 0; a < 1; a++)
 		{
+			srand(time(NULL));
 			srand(time(NULL));
 			r = rand() % 11;
 
 
-			printf("%d\t", r);
+			printf("card drawn is %d\t", r);
 			valueDealer = valueDealer + r;
+			getchar();
 		}
-		printf(" dealer value is %d", valueDealer);
-
+		printf("New dealer value is %d\n", valueDealer);
+		if (valueDealer >= value)
+		{
+			printf("DEALER WINS , Player Looses\n ");
+			return 0;
+		}
 	}
-	 if (valueDealer > 21) {
+	 if (valueDealer > 21 && value <22) {
 		printf("Dealer Bust , player WINS !!!\n");
 		return 0;
 	}
